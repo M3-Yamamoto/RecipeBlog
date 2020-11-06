@@ -35,15 +35,23 @@ class RecipeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $recipe = new Recipe();
+        $validatedData = request()->validate([
+            'name' => 'required',
+            'ingredients' => 'required',
+            'category' => 'required',
+        ]);
 
-        $recipe->name = $request->name;
-        $recipe->ingredients = $request->ingredients;
-        $recipe->category = $request->category;
+        // $recipe = new Recipe();
 
-        $recipe->save();
+        // $recipe->name = request()->name;
+        // $recipe->ingredients = request()->ingredients;
+        // $recipe->category = request()->category;
+
+        // $recipe->save();
+
+        Recipe::create($validatedData);
 
         return redirect("recipe");
     }
@@ -65,10 +73,8 @@ class RecipeController extends Controller
      * @param  \App\Recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Recipe $recipe)
     {
-        $recipe = Recipe::find($id);
-
         return view('edit',compact('recipe'));
     }
 
@@ -81,12 +87,13 @@ class RecipeController extends Controller
      */
     public function update(Request $request, Recipe $recipe)
     {
-        $recipe = Recipe::find($recipe->id);
-        $recipe->name = $request->name;
-        $recipe->ingredients = $request->ingredients;
-        $recipe->category = $request->category;
+         $validatedData = $request->validate([
+            'name' => 'required',
+            'ingredients' => 'required',
+            'category' => 'required',
+        ]);
 
-        $recipe->save();
+        $recipe->update( $validatedData);
 
         return redirect("recipe");
     }
