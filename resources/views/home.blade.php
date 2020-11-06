@@ -7,9 +7,7 @@
         <a href="/recipe/create"><button class="btn btn-success">Create</button></a>
     </div>
     @foreach($data as $value)
-        <a href="/recipe/{{ $value->id }}"> <li>Name - {{ $value->name }}</li></a>
-        <li>Ingredients - {{ $value->ingredients }}</li>
-        <li>Category - {{ $value->category }}</li>
+        <a href="/recipe/{{ $value->id }}"> <li>{{ $value->name }}</li></a>
         <hr>
     @endforeach
  </div>
