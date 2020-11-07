@@ -12,6 +12,7 @@
 */
 
 Route::resource('recipe','RecipeController');
+Route::get('home','HomeController@index');
 
 Auth::routes();
 

@@ -47,7 +47,7 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return $this->loggedOut($request) ?: redirect('recipe');
+        return $this->loggedOut($request) ?: redirect('home');
     }
 
 }
