@@ -12,3 +12,6 @@
 */
 
 Route::resource('recipe','RecipeController');
+
+Auth::routes();
+

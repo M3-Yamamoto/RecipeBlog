@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Recipe;
+use App\Category;
 use Illuminate\Http\Request;
 
 class RecipeController extends Controller
@@ -25,8 +26,9 @@ class RecipeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('create');
+    {   
+        $category = Category::all();
+        return view('create',compact('category'));
     }
 
     /**
@@ -63,7 +65,7 @@ class RecipeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Recipe $recipe)
-    {
+    {   
         return view("show",compact('recipe'));
     }
 
@@ -74,8 +76,9 @@ class RecipeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Recipe $recipe)
-    {
-        return view('edit',compact('recipe'));
+    {   
+        $category = Category::all();
+        return view('edit',compact('recipe','category'));
     }
 
     /**

@@ -24,10 +24,17 @@
 		    <label>Ingredients</label>
 		    <input type="text" class="form-control" name="ingredients" value="{{ $recipe->ingredients }}" required >
 		  </div>
-		  <div class="form-group">
-		    <label>Category</label>
-		    <input type="text" class="form-control" name="category" value="{{ $recipe->category }}" required >
-		  </div>
+
+		   <div class="form-group">
+		 	<select class="form-control" name="category">
+		 		@foreach($category as $value)
+		 			<option value="{{$value->id}}"  
+		 				{{$recipe->categories->id == $value->id
+		 				? "selected" : ""}}>{{$value->name}}</option>
+		 		@endforeach
+		 	</select>
+		 </div>
+
 		  <button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 	</div>
