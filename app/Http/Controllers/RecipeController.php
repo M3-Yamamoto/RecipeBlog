@@ -7,7 +7,13 @@ use App\Category;
 use Illuminate\Http\Request;
 
 class RecipeController extends Controller
-{
+{   
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,7 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        $data = Recipe::all();
+        $data = Recipe::where('author_id', auth()->id())->get();
 
         return view('home',compact('data'));
     }
@@ -53,7 +59,7 @@ class RecipeController extends Controller
 
         // $recipe->save();
 
-        Recipe::create($validatedData);
+        Recipe::create($validatedData + ['author_id' => auth()->id()]);
 
         return redirect("recipe");
     }
@@ -66,6 +72,9 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {   
+        if($recipe->author_id != auth()->id()) {
+            abort(403);
+        }
         return view("show",compact('recipe'));
     }
 
