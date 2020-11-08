@@ -72,9 +72,10 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {   
-        if($recipe->author_id != auth()->id()) {
-            abort(403);
-        }
+        // if($recipe->author_id != auth()->id()) {
+        //     abort(403);
+        // }
+        $this->authorize('view',$recipe);
         return view("show",compact('recipe'));
     }
 
@@ -86,6 +87,7 @@ class RecipeController extends Controller
      */
     public function edit(Recipe $recipe)
     {   
+        $this->authorize('view',$recipe);
         $category = Category::all();
         return view('edit',compact('recipe','category'));
     }
@@ -98,7 +100,8 @@ class RecipeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Recipe $recipe)
-    {
+    {   
+         $this->authorize('view',$recipe);
          $validatedData = $request->validate([
             'name' => 'required',
             'ingredients' => 'required',
@@ -117,7 +120,8 @@ class RecipeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Recipe $recipe)
-    {
+    {   
+        $this->authorize('view',$recipe);
         $recipe->delete($recipe);
 
         return redirect("recipe");
